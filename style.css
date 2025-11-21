@@ -14,70 +14,90 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-  background:var(--black);
-  color:var(--white);
-  font-family:'Roboto', Helvetica Neue, sans-serif;
-  font-weight:100;
-  overflow-x:hidden;
-  height:300vh;
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Roboto', Helvetica Neue, sans-serif;
+  font-weight: 100;
+  overflow-x: hidden;
+  height: 300vh;
 }
 
 .screen {
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background:var(--black); z-index:10;
-  animation:fade 2s forwards;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: var(--black);
+  z-index: 10;
+  animation: fade 2s forwards;
 }
 
 .content {
-  position:absolute;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  text-align:center;
-  pointer-events:none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
 }
 
+/* TEND. */
 h1 {
-  font-size:12vw;
-  letter-spacing:-0.04em;
-  opacity:0;
-  transition:opacity 2s;
-  margin:0;
+  font-size: 18vw;
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+  margin: 0 0 -6vw 0;
+  opacity: 0;
+  transition: opacity 2s;
 }
 
-p {
-  font-size:4.5vw;
-  opacity:0;
-  transition:opacity 1s 0.8s;
-  margin:20px 0;
+/* Center */
+h2 {
+  font-size: 9.5vw;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 1s 1.2s;
 }
 
 .pin {
-  width:60px; height:60px;
-  margin:40px auto;
-  opacity:0;
-  transition:opacity 1s 2s;
+  width: 60px;
+  height: 60px;
+  margin: 60px auto 40px;
+  opacity: 0;
+  transition: opacity 1s 2s;
+}
+
+p {
+  font-size: 4vw;
+  opacity: 0;
+  transition: opacity 1s 2.2s;
+  margin: 20px 0;
 }
 
 #cal {
-  pointer-events:all;
-  background:var(--glow);
-  color:var(--black);
-  border:none;
-  padding:12px 28px;
-  font-size:1.6rem;
-  font-weight:100;
-  letter-spacing:0.05em;
-  opacity:0;
-  transition:opacity 1s 3s;
-  cursor:pointer;
+  pointer-events: all;
+  background: var(--glow);
+  color: var(--black);
+  border: none;
+  padding: 14px 32px;
+  font-size: 1.8rem;
+  font-weight: 100;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 1s 3s;
 }
 
 footer {
-  position:fixed;
-  bottom:20px; left:50%;
-  transform:translateX(-50%);
-  font-size:0.8rem;
-  opacity:0.3;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  opacity: 0.3;
 }
 
-@keyframes fade { to { opacity:0; } }
+@keyframes fade {
+  to { opacity: 0; }
+}
