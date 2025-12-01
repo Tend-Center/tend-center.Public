@@ -7,23 +7,51 @@
 </head>
 <body>
 
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="embers.mp4" type="video/mp4">
+  </video>
+
   <div class="screen"></div>
 
   <div class="content">
     <h1>Tend.</h1>
     <h2>Center</h2>
-
-    <!-- your four icons will go here -->
-
+    
     <svg viewBox="0 0 100 100" class="pin">
       <circle cx="50" cy="50" r="4" fill="white"/>
     </svg>
+    
+    <p>Join the Inaugural Flame</p>
 
-    <p>When’s the next fire?</p>
-    <button id="cal">pick a date</button>
+    <a href="flame.html" class="rsvp-button">RSVP: THU DEC 11, 2025</a>
+
+    <div class="icon-row">
+      <div class="flip-card"><div class="flip-inner"><img id="s1" src="compass.png" class="slot"></div></div>
+      <div class="flip-card"><div class="flip-inner"><img id="s2" src="teepee.png"  class="slot"></div></div>
+      <div class="flip-card"><div class="flip-inner"><img id="s3" src="fish.png"    class="slot"></div></div>
+      <div class="flip-card"><div class="flip-inner"><img id="s4" src="bread.png"   class="slot"></div></div>
+    </div>
   </div>
 
-  <footer>Bring your beard. We’ve got wood.</footer>
+  <section class="mission-section">
+    <h3 class="mission-heading">
+      <strong>Tend Center’s</strong> mission is to equip men to tend their flame.
+    </h3>
+    <p class="mission-text">
+      We do this by walking with one another, building fires, and doing real things in an increasingly artificial world.
+    </p>
+
+    <div class="blog-preview">
+      <div class="preview-title">Men have lost their flame.</div>
+      <p class="preview-text">
+        What was once a blazing fire has smoldered down to whispering embers.
+        Why have men lost their flame?
+        “It’s our food and our environment!” decries one, “It’s technology and screen time,” shouts another. “It’s our culture’s abandonment of Judaeo Christian values,” insists our religious friend.
+        The debates ensue, but less debatable are the effects...
+      </p>
+      <a href="article.html" class="read-more">[read more]</a>
+    </div>
+  </section>
 
   <script src="script.js"></script>
 </body>

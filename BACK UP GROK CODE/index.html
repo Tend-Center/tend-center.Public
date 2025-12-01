@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tend. Center</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- VIDEO — pointer-events:none + z-index:1 (behind everything) -->
+  <video autoplay muted loop playsinline id="bg-video" style="pointer-events:none;">
+    <source src="embers.mp4" type="video/mp4">
+  </video>
+
+  <div class="screen"></div>
+
+  <div class="content">
+    <h1>Tend.</h1>
+    <h2>Center</h2>
+    <svg viewBox="0 0 100 100" class="pin"><circle cx="50" cy="50" r="4" fill="white"/></svg>
+    <p>Join the Inaugural Flame</p>
+
+    <!-- THIS IS THE ONLY LINE THAT MATTERS — 100% WORKING -->
+    <a href="flame.html" class="rsvp-button">RSVP: THU DEC 11, 2025</a>
+
+    <div class="icon-row">
+      <div class="flip-card"><div class="flip-inner"><img id="s1" src="compass.png" class="slot"></div></div>
+      <div class="flip-card"><div class="flip-inner"><img id="s2" src="teepee.png"   class="slot"></div></div>
+      <div class="flip-card"><div class="flip-inner"><img id="s3" src="fish.png"     class="slot"></div></div>
+      <div class="flip-card"><div class="flip-inner"><img id="s4" src="bread.png"    class="slot"></div></div>
+    </div>
+  </div>
+
+  <script>
+    document.documentElement.classList.add('loaded');
+
+    const icons = [
+      "compass.png","buck.png","hatchet.png","trinity.png","fire.png","teepee.png",
+      "cross.png","bow.png","guitar.png","wood.png","fish.png","shoes.png",
+      "books.png","beef.png","phone.png","bread.png"
+    ];
+
+    const slots = [document.getElementById('s1'),document.getElementById('s2'),
+                   document.getElementById('s3'),document.getElementById('s4')];
+
+    slots[0].src = icons[0]; slots[1].src = icons[5];
+    slots[2].src = icons[10]; slots[3].src = icons[15];
+
+    let index = 0;
+    function flipNext() {
+      const slotIndex = index % 4;
+      const card = slots[slotIndex].closest('.flip-card');
+      card.classList.add('flipping');
+      setTimeout(() => {
+        index = (index + 1) % icons.length;
+        slots[slotIndex].src = icons[index];
+        card.classList.remove('flipping');
+      }, 600);
+    }
+    setTimeout(() => { flipNext(); setInterval(flipNext, 2200); }, 1500);
+  </script>
+</body>
+</html>

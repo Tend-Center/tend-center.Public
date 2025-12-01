@@ -1,103 +1,240 @@
+/* --- FONTS & RESET --- */
 @font-face {
   font-family: 'Roboto';
   src: url('Roboto-Thin.ttf') format('truetype');
   font-weight: 100;
-  font-style: normal;
 }
 
-:root {
-  --black: #000;
-  --white: #fff;
-  --glow: #f97216;
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'Roboto', Helvetica Neue, sans-serif;
+  background: #000;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
   font-weight: 100;
-  overflow-x: hidden;
-  height: 300vh;
+  min-height: 100vh;
+  overflow-x: hidden; 
 }
 
-.screen {
+/* --- BACKGROUND VIDEO --- */
+#bg-video {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: var(--black);
-  z-index: 10;
-  animation: fade 2s forwards;
-}
-
-.content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
+  min-width: 100%; min-height: 100%;
   transform: translate(-50%, -50%);
+  z-index: -1 !important;
+  opacity: 0.4;
+  object-fit: cover;
+  pointer-events: none !important;
+}
+
+/* --- INTRO SCREEN (Black Fade Out) --- */
+.screen { 
+  position: fixed; inset: 0; 
+  background: #000; 
+  z-index: 10; 
+  animation: f 2s forwards; 
+  pointer-events: none; 
+}
+@keyframes f { to { opacity: 0; visibility: hidden; } }
+
+/* --- MAIN CONTAINER (Hero) --- */
+.content {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  pointer-events: none;
+  z-index: 3;
+  padding-bottom: 50px; 
 }
 
-/* TEND. */
-h1 {
-  font-size: 18vw;
-  letter-spacing: -0.06em;
-  line-height: 0.85;
-  margin: 0 0 -6vw 0;
-  opacity: 0;
-  transition: opacity 2s;
+/* --- TYPOGRAPHY ANIMATIONS --- */
+/* Uses min() to cap size on desktop so it doesn't get huge */
+h1 { 
+  font-size: min(13vw, 130px); 
+  letter-spacing: -0.04em; 
+  line-height: 0.9; 
+  margin: 0 0 1vw 0; 
+  opacity: 0; 
+  transform: translateY(30px); 
+  transition: opacity 1.2s ease 0.6s, transform 1.2s ease 0.6s; 
 }
 
-/* Center */
-h2 {
-  font-size: 9.5vw;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  margin: 0;
-  opacity: 0;
-  transition: opacity 1s 1.2s;
+h2 { 
+  font-size: min(9vw, 80px);
+  letter-spacing: -0.02em; 
+  opacity: 0; 
+  transition: opacity 1.2s ease 1.8s; 
 }
 
-.pin {
-  width: 60px;
-  height: 60px;
-  margin: 60px auto 40px;
-  opacity: 0;
-  transition: opacity 1s 2s;
+.pin { 
+  width: 60px; height: 60px; 
+  margin: 80px auto 40px; 
+  opacity: 0; 
+  transition: opacity 1s 2.8s; 
 }
 
-p {
-  font-size: 4vw;
-  opacity: 0;
-  transition: opacity 1s 2.2s;
-  margin: 20px 0;
+p { 
+  font-size: min(4vw, 24px);
+  opacity: 0; 
+  transition: opacity 1s 3s; 
+  margin: 20px 0; 
 }
 
-#cal {
-  pointer-events: all;
-  background: var(--glow);
-  color: var(--black);
-  border: none;
-  padding: 14px 32px;
-  font-size: 1.8rem;
-  font-weight: 100;
-  letter-spacing: 0.1em;
+/* --- GHOST BUTTON --- */
+.rsvp-button {
+  display: inline-block;
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff; 
+  padding: 16px 40px;
+  font-size: 1.6rem;
+  font-weight: 700; 
+  letter-spacing: 0.12em;
+  text-decoration: none;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 1s 3s;
+  z-index: 9999;
+  position: relative;
+  
+  /* Transition Timing */
+  transition: 
+    opacity 1s ease 3.8s,
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-footer {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.8rem;
-  opacity: 0.3;
+/* Hover State */
+.rsvp-button:hover {
+  background: #f97216;
+  border-color: #f97216;
+  color: #000;
+  box-shadow: 0 0 35px rgba(249, 114, 22, 0.8);
+  transform: scale(1.05) translateY(-3px);
 }
 
-@keyframes fade {
-  to { opacity: 0; }
+.rsvp-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 15px rgba(249, 114, 22, 0.6);
 }
+
+/* --- ICON FLIP CARDS --- */
+.icon-row {
+  display: flex;
+  justify-content: center;
+  gap: min(7vw, 60px);
+  margin: 80px 0 100px;
+  z-index: 3;
+}
+
+.flip-card { width: 38px; height: 38px; perspective: 1000px; }
+
+.flip-inner { 
+  position: relative; width: 100%; height: 100%; 
+  transform-style: preserve-3d; 
+  transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+.flip-card.flipping .flip-inner { transform: rotateY(180deg); }
+
+.slot { 
+  width: 100%; height: 100%; 
+  position: absolute; 
+  backface-visibility: hidden; 
+  opacity: 0.29; 
+}
+
+/* --- MISSION SECTION (Updated: Boxed & Smaller) --- */
+.mission-section {
+  position: relative;
+  z-index: 5;         
+  background: #000;   
+  padding: 120px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 50vh;   
+}
+
+.mission-heading {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  color: #fff;
+  line-height: 1.4;
+  
+  /* SIZE REDUCED */
+  font-size: min(4.5vw, 30px); 
+  
+  /* THE ORANGE BOX */
+  border: 1px solid #f97216; 
+  padding: 25px 40px;       
+  display: inline-block;    
+  max-width: 800px;
+  margin-bottom: 40px;      
+}
+
+.mission-text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #888; 
+  
+  /* SIZE REDUCED (Matches Heading) */
+  font-size: min(4.5vw, 30px);
+  
+  max-width: 800px; 
+  line-height: 1.5;
+}
+
+.mission-heading strong {
+  font-weight: 700;
+  color: #fff; 
+}
+
+/* --- BLOG PREVIEW CARD --- */
+.blog-preview {
+  margin-top: 100px;
+  padding: 40px;
+  max-width: 700px;
+  text-align: left; 
+  background: #111; 
+  border-left: 2px solid #f97216; 
+}
+
+.preview-title {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.preview-text {
+  color: #aaa;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.read-more {
+  color: #f97216;
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  transition: opacity 0.3s ease;
+}
+
+.read-more:hover { opacity: 0.7; }
+
+/* --- LOADED STATES --- */
+.loaded h1 { opacity: 0.85; transform: none; }
+.loaded h2 { opacity: 0.3; }
+.loaded .pin, .loaded p, .loaded .rsvp-button { opacity: 1; }

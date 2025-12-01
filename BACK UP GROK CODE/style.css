@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('Roboto-Thin.ttf') format('truetype');
+  font-weight: 100;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background:#000;
+  color:#fff;
+  font-family:'Roboto',sans-serif;
+  font-weight:100;
+  min-height:100vh;
+}
+
+#bg-video {
+  position:fixed;
+  top:50%; left:50%;
+  min-width:100%; min-height:100%;
+  transform:translate(-50%,-50%);
+  z-index:-1 !important;        /* ← THIS IS THE FIX */
+  opacity:0.4;
+  object-fit:cover;
+  pointer-events:none !important;
+}
+
+.screen { position:fixed; inset:0; background:#000; z-index:10; animation:f 2s forwards; }
+@keyframes f { to {opacity:0} }
+
+.content {
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  z-index:3;
+}
+
+h1 { font-size:13vw; letter-spacing:-0.04em; line-height:0.9; margin:0 0 1vw 0; opacity:0; transform:translateY(30px); transition:opacity 1.2s ease 0.6s,transform 1.2s ease 0.6s; }
+h2 { font-size:9vw; letter-spacing:-0.02em; opacity:0; transition:opacity 1.2s ease 1.8s; }
+.pin { width:60px; height:60px; margin:80px auto 40px; opacity:0; transition:opacity 1s 2.8s; }
+p    { font-size:4vw; opacity:0; transition:opacity 1s 3s; margin:20px 0; }
+
+/* ORANGE BUTTON — 100% CLICKABLE */
+.rsvp-button {
+  display:inline-block;
+  background:#f97216;
+  color:#000;
+  border:none;
+  padding:16px 40px;
+  font-size:1.6rem;
+  letter-spacing:0.12em;
+  cursor:pointer;
+  text-decoration:none;
+  opacity:0;
+  transition:opacity 1s 3.8s;
+  z-index:9999;
+  position:relative;
+}
+
+.icon-row {
+  display:flex;
+  justify-content:center;
+  gap:7vw;
+  margin:80px 0 100px;
+  z-index:3;
+}
+
+.flip-card { width:38px; height:38px; perspective:1000px; }
+.flip-inner { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform 1.2s cubic-bezier(0.175,0.885,0.32,1.275); }
+.flip-card.flipping .flip-inner { transform:rotateY(180deg); }
+.slot { width:100%; height:100%; position:absolute; backface-visibility:hidden; opacity:0.29; }
+
+.loaded h1 { opacity:0.85; transform:none; }
+.loaded h2 { opacity:0.3; }
+.loaded .pin, .loaded p, .loaded .rsvp-button { opacity:1; }
