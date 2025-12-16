@@ -4,237 +4,277 @@
   src: url('Roboto-Thin.ttf') format('truetype');
   font-weight: 100;
 }
+@font-face {
+  font-family: 'Roboto Bold';
+  src: url('Roboto-Bold.ttf') format('truetype'); 
+  font-weight: 700;
+}
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: #000;
-  color: #fff;
+  background: #F9F9F9; 
+  color: #1a1a1a; 
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
   min-height: 100vh;
   overflow-x: hidden; 
+  line-height: 1.6;
 }
 
-/* --- BACKGROUND VIDEO --- */
-#bg-video {
-  position: fixed;
-  top: 50%; left: 50%;
-  min-width: 100%; min-height: 100%;
-  transform: translate(-50%, -50%);
-  z-index: -1 !important;
-  opacity: 0.4;
-  object-fit: cover;
-  pointer-events: none !important;
+/* --- LAYOUT UTILS --- */
+.container {
+  max-width: 900px; 
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-/* --- INTRO SCREEN (Black Fade Out) --- */
-.screen { 
-  position: fixed; inset: 0; 
-  background: #000; 
-  z-index: 10; 
-  animation: f 2s forwards; 
-  pointer-events: none; 
-}
-@keyframes f { to { opacity: 0; visibility: hidden; } }
-
-/* --- MAIN CONTAINER (Hero) --- */
-.content {
-  position: relative;
-  min-height: 100vh;
+/* --- HERO SECTION --- */
+.hero-section {
+  min-height: 90vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  z-index: 3;
-  padding-bottom: 50px; 
+  padding-top: 60px;
+  padding-bottom: 100px;
 }
 
-/* --- TYPOGRAPHY ANIMATIONS --- */
-/* Uses min() to cap size on desktop so it doesn't get huge */
+/* --- TYPOGRAPHY --- */
 h1 { 
-  font-size: min(13vw, 130px); 
-  letter-spacing: -0.04em; 
-  line-height: 0.9; 
-  margin: 0 0 1vw 0; 
+  font-size: min(15vw, 140px); 
+  letter-spacing: -0.05em; 
+  line-height: 0.85; 
+  margin: 0;
+  color: #000;
   opacity: 0; 
-  transform: translateY(30px); 
-  transition: opacity 1.2s ease 0.6s, transform 1.2s ease 0.6s; 
+  animation: fadeUp 1.2s ease forwards 0.2s;
 }
 
 h2 { 
-  font-size: min(9vw, 80px);
-  letter-spacing: -0.02em; 
+  font-size: min(10vw, 90px);
+  letter-spacing: -0.03em; 
+  color: #888; 
+  margin-bottom: 40px;
   opacity: 0; 
-  transition: opacity 1.2s ease 1.8s; 
+  animation: fadeUp 1.2s ease forwards 0.4s;
 }
 
-.pin { 
-  width: 60px; height: 60px; 
-  margin: 80px auto 40px; 
-  opacity: 0; 
-  transition: opacity 1s 2.8s; 
+/* --- ANIMATED FLAME ICON --- */
+.flame-icon {
+  width: 60px; height: 75px;
+  margin: 0 auto 50px;
+  display: block;
+  cursor: pointer;
+  transform-origin: center bottom;
+  animation: emberPulse 4s ease-in-out infinite;
+  transition: all 0.3s ease;
 }
 
-p { 
-  font-size: min(4vw, 24px);
-  opacity: 0; 
-  transition: opacity 1s 3s; 
-  margin: 20px 0; 
+.flame-icon:hover {
+  animation: none;
+  fill: #f97216;
+  opacity: 1;
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 20px rgba(249, 114, 22, 0.6));
 }
 
-/* --- GHOST BUTTON --- */
-.rsvp-button {
+@keyframes emberPulse {
+  0% { fill: #1a1a1a; opacity: 0.2; transform: scale(1); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+  50% { fill: #f97216; opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 15px rgba(249, 114, 22, 0.5)); }
+  100% { fill: #1a1a1a; opacity: 0.2; transform: scale(1); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+}
+
+/* --- MISSION BOX (Top) --- */
+.mission-box {
+  border: 1px solid #1a1a1a; 
+  padding: 40px;
+  margin: 40px 0;
+  max-width: 800px;
+  background: #fff; 
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1s;
+}
+
+.mission-text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: #333;
+  line-height: 1.4;
+}
+
+.mission-text strong {
+  font-family: 'Roboto Bold', sans-serif;
+  color: #000; 
+}
+
+/* --- MANIFESTO BOX --- */
+.manifesto-box {
+  max-width: 550px; 
+  margin: 0 auto 40px;
+  text-align: left; 
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1.6s;
+  padding: 0 10px;
+}
+
+.manifesto-box h3 {
+  font-size: 1.5rem; 
+  color: #000;
+  margin-bottom: 40px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.manifesto-box p {
+  font-size: 1.1rem;
+  color: #333; 
+  margin-bottom: 12px;
+  line-height: 1.8; 
+}
+
+/* --- BUTTONS --- */
+.btn {
   display: inline-block;
   background: transparent;
-  color: #fff;
-  border: 2px solid #fff; 
-  padding: 16px 40px;
-  font-size: 1.6rem;
-  font-weight: 700; 
-  letter-spacing: 0.12em;
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a; 
+  padding: 15px 40px;
+  font-size: 1rem;
+  font-family: 'Roboto Bold', sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  opacity: 0;
-  z-index: 9999;
-  position: relative;
-  
-  /* Transition Timing */
-  transition: 
-    opacity 1s ease 3.8s,
-    background 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s ease;
+  margin-top: 20px;
 }
 
-/* Hover State */
-.rsvp-button:hover {
-  background: #f97216;
-  border-color: #f97216;
+.btn:hover {
+  background: #000; 
+  border-color: #000;
+  color: #fff;
+}
+
+.btn-secondary {
+  border-color: #ccc;
+  color: #888;
+  font-size: 0.9rem;
+  padding: 12px 30px;
+}
+.btn-secondary:hover {
+  border-color: #000;
   color: #000;
-  box-shadow: 0 0 35px rgba(249, 114, 22, 0.8);
-  transform: scale(1.05) translateY(-3px);
+  background: transparent;
 }
 
-.rsvp-button:active {
-  transform: scale(0.98);
-  box-shadow: 0 0 15px rgba(249, 114, 22, 0.6);
-}
-
-/* --- ICON FLIP CARDS --- */
+/* --- ICONS --- */
 .icon-row {
   display: flex;
   justify-content: center;
   gap: min(7vw, 60px);
-  margin: 80px 0 100px;
-  z-index: 3;
+  margin: 80px 0; 
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards 1.4s;
 }
 
 .flip-card { width: 38px; height: 38px; perspective: 1000px; }
-
 .flip-inner { 
   position: relative; width: 100%; height: 100%; 
   transform-style: preserve-3d; 
   transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
-
 .flip-card.flipping .flip-inner { transform: rotateY(180deg); }
 
 .slot { 
   width: 100%; height: 100%; 
   position: absolute; 
   backface-visibility: hidden; 
-  opacity: 0.29; 
+  filter: invert(1); 
+  opacity: 0.6; 
 }
 
-/* --- MISSION SECTION (Updated: Boxed & Smaller) --- */
-.mission-section {
-  position: relative;
-  z-index: 5;         
-  background: #000;   
-  padding: 120px 20px;
+/* --- RECAP SECTION --- */
+.recap-section {
+  padding: 60px 20px;
+  background: #fff; 
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: 50vh;   
+  border-top: 1px solid #eee; 
 }
 
-.mission-heading {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 100;
-  color: #fff;
-  line-height: 1.4;
-  
-  /* SIZE REDUCED */
-  font-size: min(4.5vw, 30px); 
-  
-  /* THE ORANGE BOX */
-  border: 1px solid #f97216; 
-  padding: 25px 40px;       
-  display: inline-block;    
-  max-width: 800px;
-  margin-bottom: 40px;      
-}
-
-.mission-text {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  color: #888; 
-  
-  /* SIZE REDUCED (Matches Heading) */
-  font-size: min(4.5vw, 30px);
-  
-  max-width: 800px; 
-  line-height: 1.5;
-}
-
-.mission-heading strong {
-  font-weight: 700;
-  color: #fff; 
-}
-
-/* --- BLOG PREVIEW CARD --- */
-.blog-preview {
-  margin-top: 100px;
-  padding: 40px;
-  max-width: 700px;
-  text-align: left; 
-  background: #111; 
-  border-left: 2px solid #f97216; 
-}
-
-.preview-title {
-  color: #fff;
+.recap-title {
   font-size: 1.5rem;
-  margin-bottom: 10px;
-  font-weight: 700;
-}
-
-.preview-text {
   color: #aaa;
-  font-size: 1.1rem;
-  line-height: 1.6;
   margin-bottom: 20px;
+  text-align: center;
 }
 
-.read-more {
-  color: #f97216;
-  text-decoration: none;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.9rem;
-  transition: opacity 0.3s ease;
+/* --- MARQUEE SCROLL --- */
+.marquee-section {
+  padding: 80px 0;
+  background: #f5f5f5; 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.read-more:hover { opacity: 0.7; }
+.marquee-container {
+  width: 100%;
+  max-width: 900px; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  /* Fades the edges */
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
 
-/* --- LOADED STATES --- */
-.loaded h1 { opacity: 0.85; transform: none; }
-.loaded h2 { opacity: 0.3; }
-.loaded .pin, .loaded p, .loaded .rsvp-button { opacity: 1; }
+.marquee-track {
+  display: flex;
+  align-items: center; 
+  gap: 50px; 
+  width: max-content;
+  animation: scrollLeft 120s linear infinite;
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+
+.m-txt { 
+  font-size: 1.2rem; 
+  color: #444; 
+  text-transform: uppercase; 
+  letter-spacing: 0.1em;
+  font-weight: 400; 
+}
+
+/* UPDATED ICON STYLE */
+.m-icon {
+  height: 20px; 
+  width: auto;
+  opacity: 0.4; 
+  /* INVERT: Turns white icons black so they show up on light grey */
+  filter: invert(1) grayscale(100%);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
